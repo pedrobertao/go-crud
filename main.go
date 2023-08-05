@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/pedrobertao/go-crud/server"
+)
 
 func main() {
-	fmt.Println("Hello world")
+
+	if err := server.Start(":3030"); err != nil {
+		log.Fatal(err)
+	}
 }
