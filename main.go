@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	if err := server.Start(":3030"); err != nil {
 		log.Fatal(err)
 	}
