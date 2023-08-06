@@ -5,7 +5,9 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	delete "github.com/pedrobertao/go-crud/routes/DELETE"
 	get "github.com/pedrobertao/go-crud/routes/GET"
+	patch "github.com/pedrobertao/go-crud/routes/PATCH"
 	post "github.com/pedrobertao/go-crud/routes/POST"
 )
 
@@ -51,12 +53,9 @@ func createRoutes() fiber.Router {
 
 		v1.Post("/", post.PostPerson)
 
-		v1.Delete("/", func(c *fiber.Ctx) error {
-			return nil
-		})
-		v1.Patch("/", func(c *fiber.Ctx) error {
-			return nil
-		})
+		v1.Delete("/", delete.DeleteByID)
+
+		v1.Patch("/", patch.PatchById)
 	}
 
 	return nil

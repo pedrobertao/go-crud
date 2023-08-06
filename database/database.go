@@ -49,7 +49,8 @@ func FindById(id string) (models.Person, error) {
 		if err := json.Unmarshal(obj.DBB, &person); err != nil {
 			return person, err
 		}
-		if person.ID == id {
+
+		if obj.ID == id {
 			person.ID = obj.ID
 			return person, nil
 		}
@@ -71,6 +72,41 @@ func Post(p models.Person) (string, error) {
 		DBB: buff,
 	})
 	return uid, nil
+}
+
+func PatchById(id string, newData models.PatchRequest) (models.Person, error) {
+	newDB := make([]DBData, 0)
+	var person models.Person
+
+	for _, obj := range myDB {
+		if obj.ID == id {
+			var newObjData DBData
+			if err := json.Unmarshal(obj.DBB, &person); err != nil {
+				return models.Person{}, err
+			}
+			if person.Age > 0 {
+				person.Age = newData.Age
+			}
+			if person.Surname != "" {
+				person.Surname = newData.Surname
+			}
+
+			person.ID = id
+			newObj, err := json.Marshal(person)
+			if err != nil {
+				return models.Person{}, err
+			}
+
+			newObjData.DBB = newObj
+			newObjData.ID = id
+
+			newDB = append(newDB, newObjData)
+		} else {
+			newDB = append(newDB, obj)
+		}
+	}
+	myDB = newDB
+	return person, nil
 }
 
 func DeleteByID(id string) int {

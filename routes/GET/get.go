@@ -6,7 +6,7 @@ import (
 )
 
 func GetById(c *fiber.Ctx) error {
-	id := c.Query("id")
+	id := c.Params("id")
 	res, err := database.FindById(id)
 	if err != nil {
 		return err
