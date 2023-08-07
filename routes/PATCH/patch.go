@@ -8,13 +8,19 @@ import (
 
 func PatchById(c *fiber.Ctx) error {
 	id := c.Query("id", "")
-	var patchReq models.PatchRequest
+	var req models.PatchRequest
 
-	if err := c.BodyParser(&patchReq); err != nil {
+	if err := c.BodyParser(&req); err != nil {
 		return err
 	}
 
-	person, err := database.PatchById(id, patchReq)
+	req.ID = id
+
+	if err := req.Validate(); err != nil {
+		return err
+	}
+
+	person, err := database.PatchById(id, req)
 	if err != nil {
 		return err
 	}

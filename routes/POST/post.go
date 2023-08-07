@@ -7,13 +7,17 @@ import (
 )
 
 func PostPerson(c *fiber.Ctx) error {
-	var person models.Person
+	var req models.PostRequest
 
-	if err := c.BodyParser(&person); err != nil {
+	if err := c.BodyParser(&req); err != nil {
 		return err
 	}
 
-	id, err := database.Post(person)
+	if err := req.Validate(); err != nil {
+		return err
+	}
+
+	id, err := database.Post(req)
 	if err != nil {
 		return err
 	}

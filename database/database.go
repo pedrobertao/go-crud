@@ -59,7 +59,7 @@ func FindById(id string) (models.Person, error) {
 	return models.Person{}, nil
 }
 
-func Post(p models.Person) (string, error) {
+func Post(p models.PostRequest) (string, error) {
 	buff, err := json.Marshal(p)
 	if err != nil {
 		return "", err

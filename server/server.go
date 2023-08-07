@@ -1,7 +1,6 @@
 package server
 
 import (
-	"log"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,6 +8,7 @@ import (
 	get "github.com/pedrobertao/go-crud/routes/GET"
 	patch "github.com/pedrobertao/go-crud/routes/PATCH"
 	post "github.com/pedrobertao/go-crud/routes/POST"
+	"github.com/pedrobertao/go-crud/utils"
 )
 
 var app *fiber.App
@@ -19,10 +19,7 @@ func Start(portOrHost string) error {
 		AppName:      "go-crud-template",
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 5 * time.Second,
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
-			log.Println(err)
-			return err
-		},
+		ErrorHandler: utils.HandleFiberError,
 	})
 
 	createMiddlewares()
