@@ -1,6 +1,7 @@
 package server
 
 import (
+	"log"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -14,7 +15,7 @@ import (
 
 var app *fiber.App
 
-func Start(portOrHost string) error {
+func Start(host string) error {
 	app = fiber.New(fiber.Config{
 		ServerHeader: "go-crud-template",
 		AppName:      "go-crud-template",
@@ -25,16 +26,15 @@ func Start(portOrHost string) error {
 
 	createRoutes()
 
-	err := app.Listen(portOrHost)
-	if err != nil {
+	if err := app.Listen(host); err != nil {
 		return err
 	}
 	return nil
 }
 
-func createRoutes() fiber.Router {
+func createRoutes() {
 	if app == nil {
-		return nil
+		log.Fatal("App not initialized")
 	}
 
 	v1 := app.Group("/v1/api")
@@ -55,6 +55,4 @@ func createRoutes() fiber.Router {
 		v1.Patch("/", patch.PatchById)
 
 	}
-
-	return nil
 }
