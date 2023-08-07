@@ -2,15 +2,24 @@ package main
 
 import (
 	"testing"
+	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/pedrobertao/go-crud/server"
 	"github.com/stretchr/testify/require"
 )
 
-func TestFromTestify(t *testing.T) {
-	assert := assert.New(t)
+func TestMain(t *testing.T) {
 	require := require.New(t)
 
-	assert.True(true)
-	require.True(true)
+	var err error
+	go func() {
+		err = server.Start(":3030")
+	}()
+
+	time.Sleep(2 * time.Second)
+	require.Nil(err)
+
+	err = server.Close()
+	require.Nil(err)
+
 }

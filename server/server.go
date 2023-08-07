@@ -29,7 +29,11 @@ func Start(host string) error {
 	if err := app.Listen(host); err != nil {
 		return err
 	}
-	return nil
+	return Close()
+}
+
+func Close() error {
+	return app.Shutdown()
 }
 
 func createRoutes() {
