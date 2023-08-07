@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	auth "github.com/pedrobertao/go-crud/middlewares/Auth"
 	delete "github.com/pedrobertao/go-crud/routes/DELETE"
 	get "github.com/pedrobertao/go-crud/routes/GET"
 	patch "github.com/pedrobertao/go-crud/routes/PATCH"
@@ -22,8 +23,6 @@ func Start(portOrHost string) error {
 		ErrorHandler: utils.HandleFiberError,
 	})
 
-	createMiddlewares()
-
 	createRoutes()
 
 	err := app.Listen(portOrHost)
@@ -33,10 +32,6 @@ func Start(portOrHost string) error {
 	return nil
 }
 
-func createMiddlewares() {
-
-}
-
 func createRoutes() fiber.Router {
 	if app == nil {
 		return nil
@@ -44,6 +39,11 @@ func createRoutes() fiber.Router {
 
 	v1 := app.Group("/v1/api")
 	{
+
+		v1.Get("/protected", auth.Authorize, func(c *fiber.Ctx) error {
+			return c.SendString("Protected")
+		})
+
 		v1.Get("/", get.GetAll)
 
 		v1.Get("/:id", get.GetById)
@@ -53,6 +53,7 @@ func createRoutes() fiber.Router {
 		v1.Delete("/", delete.DeleteByID)
 
 		v1.Patch("/", patch.PatchById)
+
 	}
 
 	return nil
