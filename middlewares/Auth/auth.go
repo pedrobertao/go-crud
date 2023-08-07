@@ -37,7 +37,7 @@ func Authorize(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusUnauthorized)
 	}
 
-	// //To use claims, use this
+	// //To use claims, use this coode
 	// if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 	// 	fmt.Printf("Claims JWT: %+v", claims)
 	// 	return c.Next()
