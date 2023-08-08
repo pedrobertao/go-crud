@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/pedrobertao/go-crud/middlewares/auth"
+	auth "github.com/pedrobertao/go-crud/middlewares/authorization"
 	delete "github.com/pedrobertao/go-crud/routes/DELETE"
 	get "github.com/pedrobertao/go-crud/routes/GET"
 	patch "github.com/pedrobertao/go-crud/routes/PATCH"
