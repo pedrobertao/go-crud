@@ -8,15 +8,15 @@ Requires [golang](https://go.dev/) v1.20 to run.
 After cloning or downloading the template , install the dependencies:
 
 ```sh
-cd go-crud
-go mod tidy
+$ cd go-crud
+$ go mod tidy
 ```
 
 ## Running
 You can run this project from two ways for local development:
 
 ```sh
-make run 
+$ make run 
 ```
 
 or 
@@ -24,13 +24,13 @@ or
 Using the [docker](https://www.docker.com/) compose version of it:
 
 ```sh
-docker-compose up
+$ docker-compose up
 ```
 
 ## Testing
 You can run this project from two ways for local development:
 
 ```sh
-make test 
+$ make test 
 ```
 
