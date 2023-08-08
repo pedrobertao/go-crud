@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	auth "github.com/pedrobertao/go-crud/middlewares/Auth"
+	auth "github.com/pedrobertao/go-crud/middlewares/auth"
 )
 
 func main() {
