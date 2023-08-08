@@ -26,3 +26,11 @@ Using the [docker](https://www.docker.com/) compose version of it:
 ```sh
 docker-compose up
 ```
+
+## Testing
+You can run this project from two ways for local development:
+
+```sh
+make test 
+```
+
