@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/pedrobertao/go-crud/database"
+	"github.com/pedrobertao/go-crud/logging"
 	"github.com/stretchr/testify/assert"
 	"github.com/valyala/fasthttp"
 )
@@ -15,6 +16,7 @@ var fiberContext *fiber.Ctx
 
 func TestMain(m *testing.M) {
 	database.Start()
+	logging.Start()
 	app = fiber.New()
 	fiberContext = app.AcquireCtx(&fasthttp.RequestCtx{})
 	code := m.Run()
