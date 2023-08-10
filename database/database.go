@@ -122,3 +122,7 @@ func DeleteByID(id string) int {
 	myDB = newDB
 	return count
 }
+
+func Shutdown() {
+	myDB = make([]DBData, 0)
+}

@@ -1,10 +1,10 @@
 package server
 
 import (
-	"log"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/pedrobertao/go-crud/logging"
 	auth "github.com/pedrobertao/go-crud/middlewares/authorization"
 	delete "github.com/pedrobertao/go-crud/routes/DELETE"
 	get "github.com/pedrobertao/go-crud/routes/GET"
@@ -26,6 +26,7 @@ func Start(host string) error {
 
 	createRoutes()
 
+	logging.L.Infof("Starting server on: %s", host)
 	if err := app.Listen(host); err != nil {
 		return err
 	}
@@ -33,12 +34,13 @@ func Start(host string) error {
 }
 
 func Close() error {
+	logging.L.Infof("Shutting down the server")
 	return app.Shutdown()
 }
 
 func createRoutes() {
 	if app == nil {
-		log.Fatal("App not initialized")
+		logging.L.Fatal("App not initialized")
 	}
 
 	v1 := app.Group("/v1/api")

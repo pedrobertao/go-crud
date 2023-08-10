@@ -3,12 +3,14 @@ package get
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/pedrobertao/go-crud/database"
+	"github.com/pedrobertao/go-crud/logging"
 )
 
 func GetById(c *fiber.Ctx) error {
 	id := c.Params("id")
 	res, err := database.FindById(id)
 	if err != nil {
+		logging.L.Error(err)
 		return err
 	}
 
