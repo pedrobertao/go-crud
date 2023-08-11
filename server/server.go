@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/pedrobertao/go-crud/logging"
 	auth "github.com/pedrobertao/go-crud/middlewares/authorization"
 	delete "github.com/pedrobertao/go-crud/routes/DELETE"
@@ -24,7 +25,9 @@ func Start(host string) error {
 		ErrorHandler: utils.HandleFiberError,
 	})
 
-	createRoutes()
+	createRoutes(app)
+
+	createStaticRoute(app)
 
 	logging.L.Infof("Starting server on: %s", host)
 	if err := app.Listen(host); err != nil {
@@ -34,15 +37,11 @@ func Start(host string) error {
 }
 
 func Close() error {
-	logging.L.Infof("Shutting down the server")
+	logging.L.Warn("Shutting down the server")
 	return app.Shutdown()
 }
 
-func createRoutes() {
-	if app == nil {
-		logging.L.Fatal("App not initialized")
-	}
-
+func createRoutes(app *fiber.App) {
 	v1 := app.Group("/v1/api")
 	{
 
@@ -61,4 +60,15 @@ func createRoutes() {
 		v1.Patch("/", patch.PatchById)
 
 	}
+}
+
+func createStaticRoute(app *fiber.App) {
+	app.Use(favicon.New())
+
+	app.Static("/", "./public")
+
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Render("index", nil)
+	})
+
 }
