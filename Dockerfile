@@ -1,4 +1,4 @@
-# stage de build
+# BUILD STAGE
 FROM golang:1.20 AS build
 
 WORKDIR /app
@@ -7,6 +7,7 @@ COPY . /app
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o go-crud main.go
 
+# RUNNING APP 
 FROM scratch
 
 WORKDIR /app
